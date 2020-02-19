@@ -20,7 +20,9 @@ employeeNiAmount=sum(employeeNi)
 print("employeeNi for brackets" + str(employeeNi) + ",sum:" + str(employeeNiAmount) + ",employeeNi %" + str(employeeNiAmount/amount))
 
 
+apprenticeShipLevy=.005*employerNiAdjustedAmt
 
-takeHome=amount-taxAmount-employeeNiAmount-employerNiAmount
+print("Apprenticeship levy at .05% " + str(apprenticeShipLevy))
+takeHome=amount-taxAmount-employeeNiAmount-employerNiAmount-apprenticeShipLevy
 
 print("take home per month " + str(takeHome/12) + ",% take home " + str(takeHome/amount))
