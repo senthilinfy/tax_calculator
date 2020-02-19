@@ -1,4 +1,5 @@
-rate=630
+rate=500
+pension=0
 amount=(20*12*rate)
 employerNiBracket={(0,719*12):0,(719.01*12,1000000):13.8}
 employeeNiBracket={(0,719*12):0,(719.01*12,4167*12):12,(4167.01*12,1000000):2}
@@ -8,7 +9,9 @@ employerNi=[ (min(amount,band[1])-band[0])*.01*employerNiBracket[band] for band 
 employerNiAmount=sum(employerNi)
 print("employerNi for brackets" + str(employerNi) + ",sum:" + str(employerNiAmount) + ",employerNi %" + str(employerNiAmount/amount))
 
-employerNiAdjustedAmt=amount-employerNiAmount
+penAmount=(amount-employerNiAmount)*pension
+print("pension is " + str(penAmount))
+employerNiAdjustedAmt=amount-employerNiAmount - penAmount
 print("employer ni adjusted gross "+ str(employerNiAdjustedAmt))
 
 tax=[ (min(employerNiAdjustedAmt,band[1])-band[0])*.01*taxBracket[band] for band in taxBracket.keys() if employerNiAdjustedAmt>=band[0]]
@@ -23,6 +26,6 @@ print("employeeNi for brackets" + str(employeeNi) + ",sum:" + str(employeeNiAmou
 apprenticeShipLevy=.005*employerNiAdjustedAmt
 
 print("Apprenticeship levy at .05% " + str(apprenticeShipLevy))
-takeHome=amount-taxAmount-employeeNiAmount-employerNiAmount-apprenticeShipLevy
+takeHome=amount-taxAmount-employeeNiAmount-employerNiAmount-apprenticeShipLevy - penAmount
 
 print("take home per month " + str(takeHome/12) + ",% take home " + str(takeHome/amount))
